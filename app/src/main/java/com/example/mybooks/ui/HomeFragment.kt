@@ -10,14 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mybooks.databinding.FragmentHomeBinding
+import com.example.mybooks.ui.adapter.BookAdapter
 import com.example.mybooks.viewmodels.HomeViewModel
 
 class HomeFragment : Fragment() {
 
     //A fragment can exist without layout elements
     private var _binding: FragmentHomeBinding? = null
-
-
 
     //garbage collector
     //memory leak
@@ -26,12 +25,19 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!! //Will not be null
 
-    private val homeViewModel: HomeViewModel by viewModels() //Delegamos essa inicialização para biblioteca do android x
-
-    //Tres coiss para uma RecicleView nascer
+    //Tres coisa para uma RecicleView nascer
     // 1-Layout
     // 2- idendificação e a atribuição do layout
     // 3 - uma adapater
+    // 4 - o Adapter chama a ViewHolder
+    // 5 - Falta responsabilidade da ViewHolder preecher os valores depois de passar os valores para o
+    //o adapter
+
+    //A ViewMode Carraga
+
+    private val homeViewModel: HomeViewModel by viewModels() //Delegamos essa inicialização para biblioteca do android x
+
+    private val adapter: BookAdapter = BookAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,11 +54,24 @@ class HomeFragment : Fragment() {
          */
         binding.recyclerviewBooks.layoutManager = LinearLayoutManager(context)
 
+        /**
+         * Eu tenho um elemento de layout o recycler view
+         * E tenho um lista de livros
+         * Como elas se conectam se conversam
+         *o Adapter faz essa funcionalidade
+         * Ele dia como a lista vai se "adaptar" / comunicar com o layout
+         *
+         *
+         */
+        //Adapter
+        binding.recyclerviewBooks.adapter = adapter //adapter precisa receber a lista de livros
 
 
+        //Chamada dos livros
+        homeViewModel.getAllBooks()
 
-
-
+        //Items que vao observar os livros
+        setObservers()
 
         return binding.root
     }
@@ -61,4 +80,14 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun setObservers(){
+        homeViewModel.books.observe(viewLifecycleOwner) {
+            adapter.updateList(it) // it é a lista
+        }
+    }
+
+
+
 }
+

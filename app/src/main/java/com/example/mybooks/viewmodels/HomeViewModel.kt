@@ -1,13 +1,25 @@
 package com.example.mybooks.viewmodels
 
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.mybooks.entity.BookEntity
+import com.example.mybooks.repository.BookRepository
 
 class HomeViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    //Quando eu chamo a view model ele busca do repositorio reporna o _books e atribui a variavel books
+    private val _books = MutableLiveData<List<BookEntity>>()
+    //item observdo recebe
+    val books: LiveData<List<BookEntity>> = _books
+
+    //Variavel para acessar o repositorios
+    private val repository = BookRepository()
+
+
+    fun getAllBooks(){
+        _books.value = repository.getAllBooks()
+
     }
-    val text: LiveData<String> = _text
 }
