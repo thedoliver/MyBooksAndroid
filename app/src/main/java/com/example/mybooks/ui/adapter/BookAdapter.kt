@@ -50,6 +50,7 @@ class BookAdapter : RecyclerView.Adapter<BookViewHolder>() {
 
     fun updateList(list: List<BookEntity>) {
         bookList = list
+        notifyDataSetChanged() // cutuca o adapter porque tem novos valores
     }
 
 }
