@@ -1,6 +1,5 @@
-package com.example.mybooks.viewmodels
+package com.example.mybooks.viewmodel
 
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

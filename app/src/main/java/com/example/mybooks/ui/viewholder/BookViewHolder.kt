@@ -6,6 +6,7 @@ lista de informação e imprimir essa lista
 1 - Layout
 
  */
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mybooks.R
 import com.example.mybooks.databinding.ItemBookBinding
@@ -19,13 +20,16 @@ import com.example.mybooks.entity.BookEntity
  *  para passar uma item para a classe que estamos herdando tempos que ter o item na classe de origem
  *
  */
-class BookViewHolder(private val item: ItemBookBinding): RecyclerView.ViewHolder(item.root) {
+class BookViewHolder(private val item: ItemBookBinding): RecyclerView.ViewHolder(item.root), View.OnClickListener {
 
     fun bind(book: BookEntity ) {
         // Agora temos que atribuir os elementos de layout
         item.textviewTitle.text = book.title
         item.textviewAuthor.text = book.author
         item.textviewGenre.text = book.genre
+
+        item.textviewTitle.setOnClickListener { this }
+
 
         setGenreBackground(book.genre)
         updateFavoriteIcon(book.favorite)
@@ -54,6 +58,10 @@ class BookViewHolder(private val item: ItemBookBinding): RecyclerView.ViewHolder
         }else {
             item.imageviewFavorite.setImageResource(R.drawable.ic_favorite_empty)
         }
+    }
+
+    override fun onClick(v: View) {
+        TODO("Not yet implemented")
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.mybooks.viewmodels
+package com.example.mybooks.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
