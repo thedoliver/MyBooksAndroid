@@ -6,9 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mybooks.R
 import com.example.mybooks.databinding.FragmentHomeBinding
+import com.example.mybooks.helper.BookConstants
 import com.example.mybooks.ui.adapter.BookAdapter
+import com.example.mybooks.ui.listener.BookListerner
 import com.example.mybooks.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
@@ -64,6 +68,7 @@ class HomeFragment : Fragment() {
         //Adapter
         binding.recyclerviewBooks.adapter = adapter //adapter precisa receber a lista de livros
 
+        attachListener()
 
         //Chamada dos livros
         homeViewModel.getAllBooks()
@@ -72,6 +77,18 @@ class HomeFragment : Fragment() {
         setObservers()
 
         return binding.root
+    }
+
+    private fun attachListener(){
+        adapter.attachListener(object : BookListerner {
+            override fun onClick(id: Int) {
+
+                val bundle = Bundle()
+                bundle.putInt(BookConstants.KEY.BOOK_ID, id)
+
+                findNavController().navigate(R.id.navigation_details, bundle)
+            }
+        })
     }
 
     override fun onDestroyView() {

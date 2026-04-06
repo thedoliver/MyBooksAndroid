@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mybooks.databinding.ItemBookBinding
 import com.example.mybooks.entity.BookEntity
+import com.example.mybooks.ui.listener.BookListerner
 import com.example.mybooks.ui.viewholder.BookViewHolder
 
 /**
@@ -14,6 +15,7 @@ import com.example.mybooks.ui.viewholder.BookViewHolder
 class BookAdapter : RecyclerView.Adapter<BookViewHolder>() {
 
     private var bookList: List <BookEntity> = listOf()
+    private lateinit var bookListerner: BookListerner
 
 
     /**
@@ -25,7 +27,7 @@ class BookAdapter : RecyclerView.Adapter<BookViewHolder>() {
     ): BookViewHolder {
         val view = ItemBookBinding.inflate(LayoutInflater.from(p0.context), p0, false)
         // por que retornar a BookView Holder por que ela é responsavel pelas alterações do layout
-        return BookViewHolder(view)
+        return BookViewHolder(view, bookListerner)
     }
 
     /**
@@ -51,6 +53,10 @@ class BookAdapter : RecyclerView.Adapter<BookViewHolder>() {
     fun updateList(list: List<BookEntity>) {
         bookList = list
         notifyDataSetChanged() // cutuca o adapter porque tem novos valores
+    }
+
+    fun attachListener(listerner: BookListerner){
+        bookListerner = listerner
     }
 
 }

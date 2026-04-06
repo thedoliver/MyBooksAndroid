@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mybooks.R
 import com.example.mybooks.databinding.ItemBookBinding
 import com.example.mybooks.entity.BookEntity
+import com.example.mybooks.ui.listener.BookListerner
 
 /**
  *  E tambem extende da recycle view holder que precisa de uma View
@@ -20,7 +21,7 @@ import com.example.mybooks.entity.BookEntity
  *  para passar uma item para a classe que estamos herdando tempos que ter o item na classe de origem
  *
  */
-class BookViewHolder(private val item: ItemBookBinding): RecyclerView.ViewHolder(item.root), View.OnClickListener {
+class BookViewHolder(private val item: ItemBookBinding, private val listerner: BookListerner): RecyclerView.ViewHolder(item.root){
 
     fun bind(book: BookEntity ) {
         // Agora temos que atribuir os elementos de layout
@@ -28,7 +29,11 @@ class BookViewHolder(private val item: ItemBookBinding): RecyclerView.ViewHolder
         item.textviewAuthor.text = book.author
         item.textviewGenre.text = book.genre
 
-        item.textviewTitle.setOnClickListener { this }
+        item.textviewTitle.setOnClickListener(object : View.OnClickListener {
+            override fun onClick (v: View?) {
+                listerner.onClick(book.id)
+            }
+        })
 
 
         setGenreBackground(book.genre)
@@ -60,9 +65,7 @@ class BookViewHolder(private val item: ItemBookBinding): RecyclerView.ViewHolder
         }
     }
 
-    override fun onClick(v: View) {
-        TODO("Not yet implemented")
-    }
+
 
 }
 
