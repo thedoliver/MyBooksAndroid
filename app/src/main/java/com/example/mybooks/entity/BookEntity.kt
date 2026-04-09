@@ -7,3 +7,4 @@ data class BookEntity (
     var favorite: Boolean,
     val genre: String,
 )
+
