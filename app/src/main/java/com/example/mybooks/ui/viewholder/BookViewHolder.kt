@@ -68,5 +68,3 @@ class BookViewHolder(private val item: ItemBookBinding, private val listerner: B
 
 
 }
-
-

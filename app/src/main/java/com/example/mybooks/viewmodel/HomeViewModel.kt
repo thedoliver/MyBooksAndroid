@@ -14,7 +14,7 @@ class HomeViewModel : ViewModel() {
     val books: LiveData<List<BookEntity>> = _books
 
     //Variavel para acessar o repositorios
-    private val repository = BookRepository()
+    private val repository = BookRepository.getInstance()
 
 
     fun getAllBooks(){
