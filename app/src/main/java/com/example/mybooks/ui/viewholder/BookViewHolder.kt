@@ -34,7 +34,7 @@ class BookViewHolder(private val item: ItemBookBinding, private val listerner: B
                 listerner.onClick(book.id)
             }
         })
-
+        item.imageviewFavorite.setOnClickListener{listerner.onFavoriteClick(book.id)}
 
         setGenreBackground(book.genre)
         updateFavoriteIcon(book.favorite)
