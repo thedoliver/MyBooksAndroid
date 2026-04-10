@@ -2,7 +2,6 @@ package com.example.mybooks.ui.listener
 
 
 interface BookListerner {
-    fun onClick(id: Int){
-
-    }
+    fun onClick(id: Int)
+    fun onFavoriteClick(id: Int)
 }
