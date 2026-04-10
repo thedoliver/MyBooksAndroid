@@ -70,13 +70,16 @@ class HomeFragment : Fragment() {
 
         attachListener()
 
-        //Chamada dos livros
-        homeViewModel.getAllBooks()
-
         //Items que vao observar os livros
         setObservers()
 
         return binding.root
+    }
+
+    override fun onResume() {
+        //Chamada dos livros
+        homeViewModel.getAllBooks()
+        super.onResume()
     }
 
     private fun attachListener(){
@@ -87,6 +90,11 @@ class HomeFragment : Fragment() {
                 bundle.putInt(BookConstants.KEY.BOOK_ID, id)
 
                 findNavController().navigate(R.id.navigation_details, bundle)
+            }
+
+            override fun onFavoriteClick(id: Int) {
+                homeViewModel.favorite(id)
+                homeViewModel.getAllBooks()
             }
         })
     }
