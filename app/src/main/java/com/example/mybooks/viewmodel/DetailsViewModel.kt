@@ -1,22 +1,22 @@
 package com.example.mybooks.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mybooks.entity.BookEntity;
+import com.example.mybooks.entity.BookEntity
 import com.example.mybooks.repository.BookRepository
 
-class DetailsViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class DetailsViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository: BookRepository = BookRepository.getInstance()
+    private val repository = BookRepository(application.applicationContext)
 
     private val _book = MutableLiveData<BookEntity>()
     val book: LiveData<BookEntity> = _book
 
     private val _bookRemoval = MutableLiveData<Boolean>()
     val bookRemoval: LiveData<Boolean> = _bookRemoval
-
 
 
     fun getBookById(id: Int ){
