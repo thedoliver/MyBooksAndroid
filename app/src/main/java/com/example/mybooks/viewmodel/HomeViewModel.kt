@@ -13,6 +13,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     //Variavel para acessar o repositorios
     private val repository = BookRepository.getInstance(application.applicationContext)
 
+    init {
+        if (repository.getAllBooks().isEmpty()){
+            repository.loadInitialData()
+        }
+    }
+
     //Quando eu chamo a view model ele busca do repositorio reporna o _books e atribui a variavel books
     private val _books = MutableLiveData<List<BookEntity>>()
     //item observdo recebe
