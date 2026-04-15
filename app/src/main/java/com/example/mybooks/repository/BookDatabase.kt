@@ -77,12 +77,6 @@ abstract class BookDatabase: RoomDatabase() {
                          *  nunca seja nulo
                          *  Criei um novo scope e minha coroutina executa
                          *
-                         *
-                         *
-                         *
-                         *
-                         *
-                         *
                          */
                         .addCallback(DatabaseCallBack(context))
                         //.allowMainThreadQueries()

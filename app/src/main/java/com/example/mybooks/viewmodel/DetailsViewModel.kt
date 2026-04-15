@@ -5,8 +5,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.mybooks.entity.BookEntity
 import com.example.mybooks.repository.BookRepository
+import kotlinx.coroutines.launch
 
 class DetailsViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -20,15 +22,22 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
 
 
     fun getBookById(id: Int ){
-        _book.value = repository.getBookById(id)
+        //Função suspença
+        viewModelScope.launch {
+            _book.value = repository.getBookById(id)
+        }
     }
 
     fun deleteBook(id: Int){
-        _bookRemoval.value = repository.deleteBook(id)
+        viewModelScope.launch {
+            _bookRemoval.value = repository.deleteBook(id)
+        }
     }
 
     fun favorite(id: Int){
-        repository.toggleFavoriteStatus(id)
+        viewModelScope.launch {
+            repository.toggleFavoriteStatus(id)
+        }
     }
 
 }

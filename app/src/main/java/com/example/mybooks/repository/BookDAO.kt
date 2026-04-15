@@ -30,14 +30,14 @@ interface BookDAO {
 
 
     @Query("SELECT * FROM Book WHERE id = :id") //uso de placeholder para passar o id
-    fun getBookById(id: Int): BookEntity
+    suspend fun getBookById(id: Int): BookEntity
 
     @Update
-    fun update(book: BookEntity)
+    suspend fun update(book: BookEntity): Int
 
     @Delete
-    fun delete(book: BookEntity): Int
+    suspend fun delete(book: BookEntity): Int
 
     @Insert
-    fun insert(book: List<BookEntity>)
+    suspend fun insert(book: List<BookEntity>): List<Long>
 }
