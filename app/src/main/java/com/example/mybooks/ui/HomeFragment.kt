@@ -76,11 +76,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        //Chamada dos livros
-        homeViewModel.getAllBooks()
-        super.onResume()
-    }
+
 
     private fun attachListener(){
         adapter.attachListener(object : BookListerner {
@@ -94,7 +90,7 @@ class HomeFragment : Fragment() {
 
             override fun onFavoriteClick(id: Int) {
                 homeViewModel.favorite(id)
-                homeViewModel.getAllBooks()
+
             }
         })
     }
@@ -105,7 +101,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setObservers(){
-        homeViewModel.books.observe(viewLifecycleOwner) {
+        homeViewModel.bookList.observe(viewLifecycleOwner) {
             adapter.updateList(it) // it é a lista
         }
     }

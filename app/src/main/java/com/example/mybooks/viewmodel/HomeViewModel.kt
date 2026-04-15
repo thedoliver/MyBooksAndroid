@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.example.mybooks.entity.BookEntity
 import com.example.mybooks.repository.BookRepository
 
@@ -13,26 +14,14 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     //Variavel para acessar o repositorios
     private val repository = BookRepository.getInstance(application.applicationContext)
 
-    init {
-        if (repository.getAllBooks().isEmpty()){
-            repository.loadInitialData()
-        }
-    }
 
     //Quando eu chamo a view model ele busca do repositorio reporna o _books e atribui a variavel books
-    private val _books = MutableLiveData<List<BookEntity>>()
+
     //item observdo recebe
-    val books: LiveData<List<BookEntity>> = _books
+    val bookList: LiveData<List<BookEntity>> = repository.getAllBooks().asLiveData()
 
 
-
-
-    fun getAllBooks(){
-        _books.value = repository.getAllBooks()
-
-    }
-
-    fun favorite(id: Int){
+    fun favorite(id: Int) {
         repository.toggleFavoriteStatus(id)
     }
 }
