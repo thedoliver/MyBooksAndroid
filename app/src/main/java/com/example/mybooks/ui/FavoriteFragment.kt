@@ -55,20 +55,15 @@ class FavoriteFragment : Fragment() {
 
             override fun onFavoriteClick(id: Int) {
                 favoriteViewModel.favorite(id)
-                favoriteViewModel.getFavoriteBooks()
+
             }
         })
     }
 
-    override fun onResume() {
-        //Chamada dos livros
-        super.onResume()
-        favoriteViewModel.getFavoriteBooks()
 
-    }
 
     private fun setObservers(){
-        favoriteViewModel.books.observe(viewLifecycleOwner) {
+        favoriteViewModel.bookList.observe(viewLifecycleOwner) {
             if (it.isEmpty()){
                 binding.recyclerviewFavorites.visibility = View.GONE
                 binding.textviewNoBooks.visibility = View.VISIBLE
