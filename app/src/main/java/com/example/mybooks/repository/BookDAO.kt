@@ -6,16 +6,28 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.mybooks.entity.BookEntity
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
 interface BookDAO {
 
+    /**
+     * Entity
+     * List<Entity>
+     * LiveData<Entity> não use o Live data no repositorio
+     * Flow<Entity> ementa para camada acima no caso o repositio
+     * Cursor
+     * int, Long, Boolean
+     */
+
     @Query("SELECT * FROM Book")
-    fun getAllBooks(): List<BookEntity>
+    fun getAllBooks(): Flow<List<BookEntity>>
+
 
     @Query("SELECT * FROM Book WHERE favorite = 1")
-    fun getFavoriteBooks(): List<BookEntity>
+    fun getFavoriteBooks(): Flow<List<BookEntity>>
+
 
     @Query("SELECT * FROM Book WHERE id = :id") //uso de placeholder para passar o id
     fun getBookById(id: Int): BookEntity
