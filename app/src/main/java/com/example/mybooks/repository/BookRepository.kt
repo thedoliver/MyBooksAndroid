@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import com.example.mybooks.entity.BookEntity
 import com.example.mybooks.helper.DatabaseConstants
+import kotlinx.coroutines.flow.Flow
 
 class BookRepository(context: Context) {
 
@@ -26,16 +27,11 @@ class BookRepository(context: Context) {
     }
 
 
-
-    fun loadInitialData(){
-
-    }
-
-    fun getAllBooks(): List<BookEntity> {
+    fun getAllBooks(): Flow<List<BookEntity>> {
         return database.getAllBooks()
     }
 
-    fun getFavoriteBooks(): List<BookEntity> {
+    fun getFavoriteBooks(): Flow<List<BookEntity>> {
         return database.getFavoriteBooks()
     }
 
