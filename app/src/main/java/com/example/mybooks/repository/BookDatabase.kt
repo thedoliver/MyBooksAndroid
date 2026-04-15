@@ -85,7 +85,7 @@ abstract class BookDatabase: RoomDatabase() {
                          *
                          */
                         .addCallback(DatabaseCallBack(context))
-                        .allowMainThreadQueries()
+                        //.allowMainThreadQueries()
                         .build()
                     }
                 }
